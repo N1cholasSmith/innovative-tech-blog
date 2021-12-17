@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Ben Jorgenson",
+    "email": "benjorgenson@constellation.io",
+    "password": "password1"
+  },
+  {
+    "name": "Wyatt Meldman-Floch",
+    "email": "wyattmeldmanfloch@constellation.io",
+    "password": "password2"
+  },
+  {
+    "name": "Seth V",
+    "email": "sethv@gmail.com",
+    "password": "password3"
+  }
+]

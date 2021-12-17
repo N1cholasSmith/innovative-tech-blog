@@ -1,0 +1,20 @@
+<!-- Loop over each object in the techBlogs array -->
+{{#each techBlogs as |techBlog| }}
+<div class="row mb-4 techBlog">
+  <div class="col-md-5">
+    <h2>
+      <a href="/techBlog/{{techBlog.id}}">{{techBlog.name}}</a>
+    </h2>
+    <p>
+      <!-- Pass title value to the helper function -->
+      <a class="dollar-amount">{{format_amount techBlog.title}}</a>
+    </p>
+    <p>Created by {{techBlog.user.name}} on {{format_date techBlog.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{techBlog.description}}
+    </p>
+  </div>
+</div>
+{{/each}}
