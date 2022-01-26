@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          // attributes: ['name'],
         },
       ],
     });
@@ -55,7 +55,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: TechBlog }],
     });
 
     const user = userData.get({ plain: true });
@@ -63,6 +63,32 @@ router.get('/profile', withAuth, async (req, res) => {
     res.render('profile', {
       ...user,
       logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  console.log("user logged in is" + req.session.user_id)
+  try {
+    // Get all techBlogs and JOIN with user data
+    const techBlogData = await TechBlog.findAll({
+      where: {
+        user_id: req.session.user_id
+      },
+      include: [
+        {
+          model: User,
+          // attributes: ['name'],
+        },
+      ],
+    });
+
+    // Serialize data so the template can read it
+    const techBlogs = techBlogData.map((techBlog) => techBlog.get({ plain: true }));
+
+    // Pass serialized data and session flag into template
+    res.render('profile', { 
+      techBlogs, 
+      logged_in: req.session.logged_in 
     });
   } catch (err) {
     res.status(500).json(err);
